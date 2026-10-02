@@ -24,7 +24,6 @@
     --flame-halo: #fbffa3;
 }
 
-
 * {
     box-sizing: border-box;
 }
@@ -67,7 +66,6 @@ body {
 
 /* ==================================================
    CASTER LIGHT
-   Cahaya hangat dari api lilin, menyatu pelan.
 ================================================== */
 
 .glow {
@@ -92,27 +90,19 @@ body {
 }
 
 @keyframes glow {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: scale(1);
         opacity: 0.85;
     }
-
     50% {
         transform: scale(1.07);
         opacity: 1;
     }
 }
 
-.birthday-cake.is-out .glow {
-    opacity: 0.3;
-}
-
 
 /* ==================================================
    GROUND SHADOW
-   Gradien radial supaya unmanned, bukan oval solid.
 ================================================== */
 
 .shadow {
@@ -135,8 +125,6 @@ body {
 
 /* ==================================================
    PEDESTAL COLUMN
-   Pita spekular di 46% supaya terbaca sebagai silinder.
-   Ujung kolom tertutup piring di atas dan alas di bawah.
 ================================================== */
 
 .pedestal {
@@ -164,12 +152,6 @@ body {
     filter: drop-shadow(0 5px 7px rgba(24, 52, 52, 0.24));
 }
 
-
-/*
-    Serat brushed: garis vertikal tipis, hanya terlihat
-    di area yang terang, hilang di atas dan bawah.
-*/
-
 .pedestal::before {
     content: "";
 
@@ -187,11 +169,6 @@ body {
     -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 68%, transparent 100%);
     mask-image: linear-gradient(180deg, transparent 0%, #000 20%, #000 68%, transparent 100%);
 }
-
-
-/*
-    Collar tepat di bawah piring.
-*/
 
 .pedestal::after {
     content: "";
@@ -244,11 +221,6 @@ body {
         0 7px 12px rgba(24, 52, 52, 0.3);
 }
 
-
-/*
-    Kilau alas yang sudah dipoles bulat.
-*/
-
 .pedestal-base::after {
     content: "";
 
@@ -269,9 +241,7 @@ body {
 
 
 /* ==================================================
-   PLATE — FAR EDGE
-   Tepi jauh piring, gelap karena menghadap away dari cahaya.
-   Di belakang kue, jadi hanya crcaman kiri dan kanan yang terlihat.
+   PLATE - FAR EDGE
 ================================================== */
 
 .plate-edge {
@@ -295,8 +265,7 @@ body {
 
 
 /* ==================================================
-   PLATE — NEAR RIM
-   Tepi dekat piring, jadi menutupi dasar kue.
+   PLATE - NEAR RIM
 ================================================== */
 
 .plate-rim {
@@ -343,17 +312,56 @@ body {
 
     background-color: var(--cake-cream);
 
-    border-radius: 30px 30px 0 0;
-
     z-index: 3;
-
-    box-shadow: inset 0 -12px 14px -8px rgba(46, 28, 12, 0.42);
 }
 
 
-/*
-    Garis coklat cake
-*/
+/* ==================================================
+   CAKE TOP SURFACE
+================================================== */
+
+.cake-top {
+    position: absolute;
+
+    width: 275px;
+    height: 50px;
+
+    left: 37.5px;
+    top: 75px;
+
+    z-index: 3;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(180deg,
+            rgba(0, 0, 0, 0.34) 0%,
+            rgba(0, 0, 0, 0.08) 48%,
+            rgba(255, 255, 255, 0.12) 100%),
+        var(--cake-choc);
+
+    box-shadow:
+        inset 0 -8px 10px -6px rgba(0, 0, 0, 0.45),
+        inset 0 8px 10px -8px rgba(255, 255, 255, 0.1);
+}
+
+.cake-top::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 10px;
+
+    left: 24px;
+    top: 9px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(ellipse 50% 50% at 44% 50%,
+        rgba(255, 255, 255, 0.34) 0%,
+        rgba(255, 255, 255, 0) 74%);
+}
 
 .cake::before {
     content: "";
@@ -361,23 +369,20 @@ body {
     position: absolute;
 
     width: 275px;
-    height: 15px;
+    height: 140px;
 
     left: 0;
-    top: 75px;
+    top: 0;
 
-    background-color: var(--cake-caramel);
-
-    box-shadow:
-        0 30px var(--cake-caramel);
+    background: linear-gradient(180deg,
+        transparent 0 75px,
+        var(--cake-caramel) 75px 90px,
+        transparent 90px 105px,
+        var(--cake-caramel) 105px 120px,
+        transparent 120px 100%);
 
     z-index: 2;
 }
-
-
-/*
-    Lapisan coklat atas
-*/
 
 .cake::after {
     content: "";
@@ -403,32 +408,120 @@ body {
    CHOCOLATE DRIP
 ================================================== */
 
-.chocolate {
+.drip {
     position: absolute;
 
-    width: 25px;
-    height: 45px;
+    left: calc(var(--x) * 1px);
+    top: 30px;
 
-    left: 0;
-    top: 25px;
+    width: calc(var(--w) * 1px);
+    height: calc(var(--h) * 1px);
+
+    transform-origin: center top;
+
+    z-index: 3;
 
     background-color: var(--cake-choc);
 
-    border-radius: 50px;
+    border-radius: 0 0 var(--r) var(--r);
+}
 
-    z-index: 4;
 
-    box-shadow:
-        25px 2px var(--cake-cream),
-        50px -10px var(--cake-choc),
-        75px -5px var(--cake-cream),
-        100px 3px var(--cake-choc),
-        125px 0 var(--cake-cream),
-        150px -5px var(--cake-choc),
-        175px 3px var(--cake-cream),
-        200px -5px var(--cake-choc),
-        225px -10px var(--cake-cream),
-        250px 0 var(--cake-choc);
+/* ==================================================
+   SPRINKLES
+================================================== */
+
+.sprinkle {
+    position: absolute;
+
+    width: 7px;
+    height: 3px;
+
+    border-radius: 2px;
+
+    transform: rotate(var(--rot));
+
+    z-index: 5;
+}
+
+.sprinkle--a {
+    --rot: 16deg;
+    left: 40px; top: 50px;
+    background-color: #e74c3c;
+    box-shadow: 38px -6px #f4d03f, 74px 4px #4ecdc4, -6px 14px #ffffff, 50px 12px #e74c3c, -20px 8px #7b5ea7;
+}
+
+.sprinkle--b {
+    --rot: -19deg;
+    left: 168px; top: 48px;
+    background-color: #ffffff;
+    box-shadow: -36px -8px #7b5ea7, 2px -6px #f4d03f, 42px 10px #4ecdc4, -12px 12px #e74c3c;
+}
+
+.sprinkle--c {
+    --rot: 12deg;
+    left: 36px; top: 118px;
+    background-color: #f4d03f;
+    box-shadow: 44px -8px #4ecdc4, -30px 8px #e74c3c, 76px -4px #ffffff, 20px 12px #7b5ea7;
+}
+
+.sprinkle--d {
+    --rot: -10deg;
+    left: 176px; top: 116px;
+    background-color: #4ecdc4;
+    box-shadow: 46px -6px #e74c3c, -38px 4px #f4d03f, 18px -12px #ffffff, -14px 14px #7b5ea7;
+}
+
+
+/* ==================================================
+   CAKE SHADING
+================================================== */
+
+.cake-shading {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 9;
+
+    background:
+        linear-gradient(180deg,
+            rgba(70, 40, 14, 0) 55%,
+            rgba(70, 40, 14, 0.22) 100%),
+        linear-gradient(90deg,
+            rgba(88, 52, 18, 0.3) 0%,
+            rgba(88, 52, 18, 0.1) 14%,
+            rgba(88, 52, 18, 0) 34%,
+            rgba(255, 255, 255, 0.22) 46%,
+            rgba(255, 255, 255, 0.05) 60%,
+            rgba(88, 52, 18, 0.12) 82%,
+            rgba(88, 52, 18, 0.3) 100%);
+}
+
+
+/* ==================================================
+   CAKE CONTACT SHADOW
+================================================== */
+
+.cake-contact {
+    position: absolute;
+
+    width: 236px;
+    height: 15px;
+
+    left: 57px;
+    top: 240px;
+
+    transform-origin: center top;
+
+    z-index: 6;
+
+    border-radius: 50%;
+
+    background: radial-gradient(ellipse 50% 50% at 50% 40%,
+        rgba(22, 38, 48, 0.55) 0%,
+        rgba(22, 38, 48, 0.26) 46%,
+        rgba(22, 38, 48, 0) 76%);
 }
 
 
@@ -449,38 +542,27 @@ body {
 
     z-index: 6;
 
-    box-shadow:
-        inset 0 -10px #e74c3c;
+    box-shadow: inset 0 -10px #e74c3c;
 }
 
 .candle::before {
     content: "";
-
     position: absolute;
-
     width: 15px;
     height: 15px;
-
     left: 0;
     top: 10px;
-
     background-color: #e74c3c;
-
-    box-shadow:
-        0 25px #e74c3c;
+    box-shadow: 0 25px #e74c3c;
 }
 
 .candle::after {
     content: "";
-
     position: absolute;
-
     width: 2px;
     height: 15px;
-
     left: 6px;
     top: -15px;
-
     background-color: #222;
 }
 
@@ -513,82 +595,315 @@ body {
     animation: flame 0.5s infinite;
 }
 
-
-/*
-    Asap tipis, muncul hanya setelah lilin ditiup.
-*/
-
 .flame::after {
     content: "";
-
     position: absolute;
-
     width: 4px;
     height: 26px;
-
     left: 50%;
     bottom: 100%;
-
     margin-left: -2px;
-
     border-radius: 2px;
-
-    background: linear-gradient(180deg,
-        rgba(228, 234, 237, 0.8) 0%,
-        rgba(228, 234, 237, 0) 100%);
-
+    background: linear-gradient(180deg, rgba(228, 234, 237, 0.8) 0%, rgba(228, 234, 237, 0) 100%);
     opacity: 0;
-
     transform: translateY(6px);
 }
 
 .birthday-cake.is-out .flame {
     opacity: 0;
-
     transform: scale(0.3);
-
     animation: none;
-
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .birthday-cake.is-out .flame::after {
     opacity: 1;
-
     transform: translateY(-8px);
-
     transition: opacity 0.6s ease 0.2s, transform 1s ease 0.2s;
+}
+
+@keyframes flame {
+    from, to { transform: scale(1.1); }
+    25% { transform: scale(0.9, 1.1); }
+    50% { transform: scale(1.1, 0.9); }
+    75% { transform: scale(0.95, 1.05); }
 }
 
 
 /* ==================================================
-   FLAME ANIMATION
+   INTRO SEQUENCE (SLOW & NATURAL DROP)
+   Jeda diperlama dan berurutan satu per satu
 ================================================== */
 
-@keyframes flame {
+.birthday-cake.is-entering .shadow {
+    animation: stand-shadow 1s ease-out both;
+}
 
-    from,
+/* 0.0s - Base jatuh pertama */
+.birthday-cake.is-entering .pedestal-base {
+    transform-origin: center bottom;
+    animation: drop-bounce 0.7s both 0s;
+}
+
+/* 0.6s - Stand/tiang menyusul */
+.birthday-cake.is-entering .pedestal {
+    transform-origin: center bottom;
+    animation: drop-bounce 0.7s both 0.6s;
+}
+
+/* 1.2s - Piring jatuh (tepi dan pinggiran bersamaan) */
+.birthday-cake.is-entering .plate-edge {
+    animation: drop-bounce 0.7s both 1.2s;
+}
+.birthday-cake.is-entering .plate-rim {
+    animation: drop-bounce 0.7s both 1.22s;
+}
+
+/* 1.8s - Kue utama mendarat dengan efek pipih (squash) yang natural */
+.birthday-cake.is-entering .cake {
+    transform-origin: center bottom;
+    animation: drop-bounce-cake 0.85s both 1.8s;
+    will-change: transform;
+}
+.birthday-cake.is-entering .cake-top {
+    animation: drop-bounce-cake-top 0.85s both 1.8s;
+    will-change: transform;
+}
+
+/* 2.1s - Bayangan sentuh kue muncul */
+.birthday-cake.is-entering .cake-contact {
+    animation: contact-in 0.6s ease-out both 2.1s;
+}
+
+/* 2.5s - Tampilan layer kue (efek wipe down) */
+.birthday-cake.is-entering .cake::before {
+    animation: wipe-down 0.7s cubic-bezier(.3, .8, .3, 1) both 2.5s;
+}
+.birthday-cake.is-entering .cake::after {
+    animation: wipe-down 0.75s cubic-bezier(.3, .7, .3, 1) both 2.6s;
+}
+
+/* 3.0s - Lilin jatuh sedikit oleng dan menancap di kue */
+.birthday-cake.is-entering .candle {
+    transform-origin: center bottom;
+    animation: drop-bounce-candle 0.8s both 3.0s;
+    will-change: transform;
+}
+
+/* 3.4s - Sprinkles/meses mulai berjatuhan secara bertahap */
+.birthday-cake.is-entering .sprinkle {
+    animation: sprinkle-in 0.6s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+.birthday-cake.is-entering .sprinkle--a { animation-delay: 3.4s; }
+.birthday-cake.is-entering .sprinkle--b { animation-delay: 3.5s; }
+.birthday-cake.is-entering .sprinkle--c { animation-delay: 3.6s; }
+.birthday-cake.is-entering .sprinkle--d { animation-delay: 3.7s; }
+
+/* 4.2s - Cokelat mulai meleleh perlahan setelah semuanya selesai jatuh */
+.birthday-cake.is-entering .drip {
+    /* Waktu durasi drip dikalikan 2.5 dan delay dimundurkan agar sangat lambat & mulus */
+    animation: drip-melt calc(var(--t) * 2.5) ease-in-out calc(4.2s + (var(--d) * 2)) both;
+}
+
+/* 5.5s - Lilin menyala dan bersinar perlahan dengan sangat halus */
+.birthday-cake.is-entering .flame {
+    animation: flame-in 1.5s ease-out both 5.5s,
+               flame 0.5s infinite 7.0s;
+    will-change: transform;
+}
+.birthday-cake.is-entering .glow {
+    animation: glow-bloom 1.5s ease-out 5.5s both,
+               glow 3.4s ease-in-out infinite 7.0s;
+}
+
+
+/* ==================================================
+   INTRO KEYFRAMES
+================================================== */
+
+@keyframes stand-shadow {
+    from {
+        opacity: 0;
+        transform: scaleX(0.2);
+    }
     to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+/* Objek keras (pedestal, piring) memantul kaku */
+@keyframes drop-bounce {
+    0% {
+        opacity: 0;
+        transform: translateY(-400px);
+        animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    }
+    5% { opacity: 1; }
+    45% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    65% {
+        transform: translateY(-20px);
+        animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    }
+    80% {
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    92% {
+        transform: translateY(-5px);
+        animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Objek empuk (kue) memipih (squash) secara natural */
+@keyframes drop-bounce-cake {
+    0% {
+        opacity: 0;
+        transform: translateY(-400px) scaleY(1);
+        animation-timing-function: cubic-bezier(0.6, 0.05, 0.8, 0.5);
+    }
+    5% { opacity: 1; }
+    45% {
+        transform: translateY(0) scaleY(0.8);
+        animation-timing-function: cubic-bezier(0.2, 1.5, 0.4, 1);
+    }
+    65% {
+        transform: translateY(0) scaleY(1.08);
+        animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    85% {
+        transform: translateY(0) scaleY(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+/* Menyesuaikan atap kue dengan badannya saat memipih */
+@keyframes drop-bounce-cake-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-400px);
+        animation-timing-function: cubic-bezier(0.6, 0.05, 0.8, 0.5);
+    }
+    5% { opacity: 1; }
+    45% {
+        transform: translateY(28px);
+        animation-timing-function: cubic-bezier(0.2, 1.5, 0.4, 1);
+    }
+    65% {
+        transform: translateY(-11.2px);
+        animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    85% {
+        transform: translateY(5.6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lilin bergoyang sesaat ketika menancap */
+@keyframes drop-bounce-candle {
+    0% {
+        opacity: 0;
+        transform: translateY(-400px);
+        animation-timing-function: cubic-bezier(0.6, 0.05, 0.8, 0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0);
+        animation-timing-function: cubic-bezier(0.2, 1.5, 0.4, 1);
+    }
+    70% {
+        transform: translateY(-25px) rotate(8deg);
+        animation-timing-function: cubic-bezier(0.6, 0.05, 0.8, 0.5);
+    }
+    85% {
+        transform: translateY(0) rotate(-4deg);
+        animation-timing-function: cubic-bezier(0.2, 1.5, 0.4, 1);
+    }
+    95% {
+        transform: translateY(-6px) rotate(2deg);
+        animation-timing-function: cubic-bezier(0.6, 0.05, 0.8, 0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes wipe-down {
+    from { clip-path: inset(0 0 100% 0); }
+    to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes contact-in {
+    from { opacity: 0; transform: scale(.55); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sprinkle-in {
+    from {
+        opacity: 0;
+        transform: rotate(var(--rot)) scale(.2);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(var(--rot)) scale(1);
+    }
+}
+
+/* Cokelat meluncur turun dengan halus seperti cairan leleh */
+@keyframes drip-melt {
+    from {
+        transform: scaleY(0);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+/* Api perlahan menyala dari kecil ke besar */
+@keyframes flame-in {
+    from {
+        opacity: 0;
+        transform: scale(.1);
+    }
+    50% {
+        opacity: 0.8;
         transform: scale(1.1);
     }
-
-    25% {
-        transform: scale(0.9, 1.1);
+    100% {
+        opacity: 0.9;
+        transform: scale(1);
     }
+}
 
-    50% {
-        transform: scale(1.1, 0.9);
+/* Cahaya redup perlahan terang */
+@keyframes glow-bloom {
+    from {
+        opacity: 0;
+        transform: scale(.3);
     }
-
-    75% {
-        transform: scale(0.95, 1.05);
+    100% {
+        opacity: .85;
+        transform: scale(1);
     }
 }
 
 
 /* ==================================================
    RESPONSIVE
-   Porsi 350x400 tetap dikunci, jadi scene yang diskalakan.
 ================================================== */
 
 @media (max-width: 620px), (max-height: 560px) {
@@ -615,15 +930,11 @@ body {
 ================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-
-    .flame,
-    .glow {
-        animation: none;
-    }
-
-    .flame,
-    .glow,
-    .flame::after {
-        transition-duration: 0.01ms;
+    .flame, .glow { animation: none; }
+    .flame, .glow, .flame::after { transition-duration: 0.01ms; }
+    .birthday-cake.is-entering *,
+    .birthday-cake.is-entering .cake::before,
+    .birthday-cake.is-entering .cake::after {
+        animation: none !important;
     }
 }
