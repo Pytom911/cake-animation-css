@@ -4,156 +4,223 @@
 
 body {
     margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100vh;
+
     background-color: #68b0ab;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+
     overflow: hidden;
 }
 
 .birthday-cake {
     position: relative;
+
     width: 350px;
     height: 400px;
 }
 
-/* =========================
-   HOLDER
-========================= */
 
-.holder {
-    position: absolute;
-    width: 350px;
-    height: 20px;
-    left: 0;
-    top: 230px;
-    border-radius: 100px;
-    background-color: #212f3c;
-    z-index: 5;
-}
-
-.holder::before {
-    content: "";
-    position: absolute;
-    width: 100px;
-    height: 150px;
-    background-color: #cacfd2;
-    left: 125px;
-    top: 20px;
-}
-
-.holder::after {
-    content: "";
-    position: absolute;
-    background-color: #68b0ab;
-    width: 100px;
-    height: 135px;
-    border-radius: 30px 30px 0 0;
-    left: 65px;
-    top: 20px;
-    box-shadow: 125px 0 #68b0ab;
-}
-
-/* =========================
+/* ==================================================
    SHADOW
-========================= */
+================================================== */
 
 .shadow {
     position: absolute;
-    width: 350px;
+
+    width: 330px;
     height: 20px;
-    border-radius: 50%;
+
+    left: 10px;
     top: 365px;
-    left: 0;
+
+    border-radius: 50%;
+
     background-color: rgba(0, 0, 0, 0.095);
+
     z-index: 1;
 }
 
-.shadow::before {
-    content: "";
+
+/* ==================================================
+   PEDESTAL
+================================================== */
+
+.pedestal {
     position: absolute;
+
+    width: 100px;
+    height: 150px;
+
+    left: 125px;
+    top: 230px;
+
     background-color: #cacfd2;
-    width: 150px;
-    height: 20px;
-    border-radius: 20px;
-    top: -10px;
-    left: 100px;
+
+    z-index: 2;
 }
 
-/* =========================
-   CAKE
-========================= */
 
-.cake {
+/*
+    Membuat bagian atas stand melengkung.
+    Warna teal menutup sisi kiri dan kanan.
+*/
+
+.pedestal::before {
+    content: "";
+
     position: absolute;
-    overflow: hidden;
-    width: 275px;
-    height: 140px;
-    background-color: #fad7a0;
 
-    /*
-      Cake diposisikan tepat di tengah holder.
-      350 - 275 = 75 / 2 = 37.5
-    */
-    left: 37.5px;
-    top: 100px;
+    width: 100px;
+    height: 135px;
+
+    left: -60px;
+    top: 0;
+
+    background-color: #68b0ab;
 
     border-radius: 30px 30px 0 0;
+
+    box-shadow: 125px 0 #68b0ab;
+}
+
+
+/* ==================================================
+   BASE STAND
+================================================== */
+
+.pedestal-base {
+    position: absolute;
+
+    width: 140px;
+    height: 20px;
+
+    left: 105px;
+    top: 355px;
+
+    background-color: #cacfd2;
+
+    border-radius: 20px;
+
     z-index: 3;
 }
 
-/* Lapisan garis cake */
+
+/* ==================================================
+   HOLDER / PLATE
+================================================== */
+
+.holder {
+    position: absolute;
+
+    width: 350px;
+    height: 20px;
+
+    left: 0;
+    top: 230px;
+
+    border-radius: 100px;
+
+    background-color: #212f3c;
+
+    z-index: 5;
+}
+
+
+/* ==================================================
+   CAKE
+================================================== */
+
+.cake {
+    position: absolute;
+
+    width: 275px;
+    height: 140px;
+
+    left: 37.5px;
+    top: 100px;
+
+    overflow: hidden;
+
+    background-color: #fad7a0;
+
+    border-radius: 30px 30px 0 0;
+
+    z-index: 3;
+}
+
+
+/*
+    Garis coklat cake
+*/
 
 .cake::before {
     content: "";
+
     position: absolute;
-    background-color: #935116;
 
     width: 275px;
     height: 15px;
 
-    top: 75px;
     left: 0;
+    top: 75px;
 
-    box-shadow: 0 30px #935116;
+    background-color: #935116;
+
+    box-shadow:
+        0 30px #935116;
+
+    z-index: 2;
 }
 
-/* Bagian chocolate atas */
+
+/*
+    Lapisan coklat atas
+*/
 
 .cake::after {
     content: "";
-    position: absolute;
 
-    background-color: #573612;
+    position: absolute;
 
     width: 275px;
     height: 40px;
 
-    top: 0;
     left: 0;
+    top: 0;
 
-    box-shadow: inset 0 10px rgba(0, 0, 0, 0.07);
+    background-color: #573612;
+
+    box-shadow:
+        inset 0 10px rgba(0, 0, 0, 0.07);
+
+    z-index: 1;
 }
 
-/* =========================
+
+/* ==================================================
    CHOCOLATE DRIP
-========================= */
+================================================== */
 
 .chocolate {
     position: absolute;
 
-    background-color: #573612;
-
     width: 25px;
     height: 45px;
 
-    top: 25px;
     left: 0;
+    top: 25px;
 
-    z-index: 4;
+    background-color: #573612;
 
     border-radius: 50px;
+
+    z-index: 4;
 
     box-shadow:
         25px 2px #fad7a0,
@@ -165,12 +232,13 @@ body {
         175px 3px #fad7a0,
         200px -5px #573612,
         225px -10px #fad7a0,
-        250px 40px #573612;
+        250px 0 #573612;
 }
 
-/* =========================
+
+/* ==================================================
    CANDLE
-========================= */
+================================================== */
 
 .candle {
     position: absolute;
@@ -178,11 +246,6 @@ body {
     width: 15px;
     height: 70px;
 
-    /*
-      Tengah cake:
-      37.5 + (275 / 2) - (15 / 2)
-      = 167.5
-    */
     left: 167.5px;
     top: 35px;
 
@@ -190,7 +253,8 @@ body {
 
     z-index: 6;
 
-    box-shadow: inset 0 -10px #e74c3c;
+    box-shadow:
+        inset 0 -10px #e74c3c;
 }
 
 .candle::before {
@@ -201,8 +265,8 @@ body {
     width: 15px;
     height: 15px;
 
-    top: 10px;
     left: 0;
+    top: 10px;
 
     background-color: #e74c3c;
 
@@ -218,15 +282,16 @@ body {
     width: 2px;
     height: 15px;
 
-    background-color: black;
-
-    top: -15px;
     left: 6px;
+    top: -15px;
+
+    background-color: #222;
 }
 
-/* =========================
+
+/* ==================================================
    FLAME
-========================= */
+================================================== */
 
 .flame {
     position: absolute;
@@ -234,9 +299,6 @@ body {
     width: 20px;
     height: 30px;
 
-    /*
-      Flame tepat di tengah candle
-    */
     left: 165px;
     top: 0;
 
@@ -255,7 +317,13 @@ body {
     animation: flame 0.5s infinite;
 }
 
+
+/* ==================================================
+   FLAME ANIMATION
+================================================== */
+
 @keyframes flame {
+
     from,
     to {
         transform: scale(1.1);
